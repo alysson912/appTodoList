@@ -9,9 +9,7 @@ import UIKit
 
 class TaskScreenViewController: UIViewController {
     
-    
     @IBOutlet weak var taskTableView: UITableView!
-    
     @IBOutlet weak var addTaskButton: UIButton!
     
     var data : [Task] = []
@@ -19,7 +17,6 @@ class TaskScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configTableView()
-        
     }
     
     func configTableView(){
@@ -29,17 +26,24 @@ class TaskScreenViewController: UIViewController {
         taskTableView.register(TasksTableViewCell.nib(), forCellReuseIdentifier: TasksTableViewCell.identifier)
     }
     
-    
     @IBAction func tappedAddTaskButton(_ sender: UIButton) {
         
         let vc : RegisterTaskViewController? = UIStoryboard(name: "RegisterTask", bundle: nil).instantiateViewController(withIdentifier: "RegisterTask") as? RegisterTaskViewController
        
-     //  vc?.modalPresentationStyle = .fullScreen
+        vc?.delegate = self
        self.present(vc ?? UIViewController(), animated: true)
-        
+    }
+}
+
+extension TaskScreenViewController: RegisterTaskViewControllerProtocol {
+    func addTask(task: Task) {
+        data.append(task)
+        taskTableView.reloadData()
     }
     
+    
 }
+
 extension TaskScreenViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -48,8 +52,8 @@ extension TaskScreenViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TasksTableViewCell.identifier, for: indexPath) as? TasksTableViewCell
-        
-        
+        cell?.configCell(task: data[ indexPath.row])
+    
         return cell ?? UITableViewCell()
     }
     

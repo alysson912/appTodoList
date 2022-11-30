@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RegisterTaskViewControllerProtocol: AnyObject {
+    func addTask(task: Task)
+}
+
 class RegisterTaskViewController: UIViewController {
 
     
@@ -16,16 +20,17 @@ class RegisterTaskViewController: UIViewController {
     
     @IBOutlet weak var addButton: UIButton!
     
+    weak var delegate: RegisterTaskViewControllerProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configTask()
         // Do any additional setup after loading the view.
     }
-    
+
     func configTask(){
         taskTextfield.delegate = self
         taskDescriptionTextfield.delegate = self
-        
         
         func addElements(task : Task){
             taskTextfield.text = task.nomeTask
@@ -34,24 +39,15 @@ class RegisterTaskViewController: UIViewController {
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
-        let taskScreen = TaskScreenViewController()
+        dismiss(animated: true)
+        delegate?.addTask(task: Task(nomeTask: taskTextfield.text ?? "", description: taskDescriptionTextfield.text ?? ""))
         
-        taskScreen.data.append(
-            Task(
-                nomeTask: taskTextfield.text ?? "",
-                description: taskDescriptionTextfield.text ?? ""))
-        
-        let tableView = TaskScreenViewController()
-        tableView.taskTableView.reloadData()
     }
-    
-    
 }
+
 extension RegisterTaskViewController : UITextFieldDelegate {
     
-   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
         
         // ao clicar baixar a tela 

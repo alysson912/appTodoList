@@ -30,6 +30,5 @@ class TasksTableViewCell: UITableViewCell {
     func configCell(task : Task){
         self.titleTaskLabel.text = task.nomeTask
         self.descriptionTaskLabel.text = task.description
-        
     }
 }
