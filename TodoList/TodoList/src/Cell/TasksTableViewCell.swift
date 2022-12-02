@@ -28,6 +28,7 @@ class TasksTableViewCell: UITableViewCell {
 
   
     func configCell(task : Task){
+        self.imageTaskImageView.image = UIImage(named: task.image)
         self.titleTaskLabel.text = task.nomeTask
         self.descriptionTaskLabel.text = task.description
     }

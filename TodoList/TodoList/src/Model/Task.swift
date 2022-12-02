@@ -8,6 +8,7 @@ import UIKit
 import Foundation
 
 struct Task {
+    var image: String
     var nomeTask : String
     var description : String
 }

@@ -13,6 +13,7 @@ class TaskScreenViewController: UIViewController {
     @IBOutlet weak var addTaskButton: UIButton!
     
     var data : [Task] = []
+    var listImage: [String] = ["Image-1", "Image-2", "Image-3", "Image-4", "Image-5"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,11 @@ extension TaskScreenViewController: RegisterTaskViewControllerProtocol {
 }
 
 extension TaskScreenViewController : UITableViewDelegate, UITableViewDataSource{
+    // ao clicar no item
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -53,6 +59,7 @@ extension TaskScreenViewController : UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TasksTableViewCell.identifier, for: indexPath) as? TasksTableViewCell
         cell?.configCell(task: data[ indexPath.row])
+        
     
         return cell ?? UITableViewCell()
     }

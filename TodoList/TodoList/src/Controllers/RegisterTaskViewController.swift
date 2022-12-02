@@ -20,6 +20,8 @@ class RegisterTaskViewController: UIViewController {
     
     @IBOutlet weak var addButton: UIButton!
     
+   
+    
     weak var delegate: RegisterTaskViewControllerProtocol?
     
     override func viewDidLoad() {
@@ -40,7 +42,7 @@ class RegisterTaskViewController: UIViewController {
     
     @IBAction func tappedAddButton(_ sender: Any) {
         dismiss(animated: true)
-        delegate?.addTask(task: Task(nomeTask: taskTextfield.text ?? "", description: taskDescriptionTextfield.text ?? ""))
+        delegate?.addTask(task: Task(image: listImage.randomElement() ?? "", nomeTask: taskTextfield.text ?? "", description: taskDescriptionTextfield.text ?? ""))
         
     }
 }
